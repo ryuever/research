@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map {
+    float: left;
+    height: 50%;
+    width: 40%;
+}
+
+#simulation {
+    float: right;
+    text-align: center
+                    font-family: 'Roboto','sans-serif';
+    height: 100%;
+    line-height: 30px;
+    padding-left: 10px;
+    width: 60%;
+}
+
+#simulation > #solar {
+    height: 300px;
+    width: 480px;
+}
+#simulation > #solar > #solar_simulation {
+    width: 450;
+}
+
+#simulation > #solar > .btn {
+    margin-left:50%;
+    margin-right:50%;
+}

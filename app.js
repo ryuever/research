@@ -16,9 +16,11 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
-    // res.sendFile(__dirname + '/index.html');
     res.sendFile(__dirname + '/realtime_ploting.html');
 });
+
+// make the local file could be visible to server
+app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket) {
     console.log("connection established");
@@ -84,8 +86,8 @@ io.on('connection', function(socket) {
 });
 
 
-http.listen(3020, function(){
-  console.log('listening on *:3020');
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
 
-app.listen(3000);
+// app.listen(3000);

@@ -1,101 +1,36 @@
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script type="text/javascript" src="http://cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.min.js"></script>
-<script type="text/javascript" src="http://cdn.jsdelivr.net/jqplot/1.0.8/plugins/jqplot.dateAxisRenderer.min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.min.css" />
-<div id="myChart" style="height:300px; width:500px;"></div>
-<button>Start Updates</button>
-<ul id="messages"></ul>
-<script type="text/javascript">
-
- var t = 1000;
- //samples to draw
- var n = 20;
- var data = [];
-
- var x = (new Date()).getTime(); // current Fri Aug 28 08:52:42 2015
- for(i=0; i<n; i++){
-	data.push([x - (n-1-i)*t,0]);
- }
- /* for (var i = 0; i < 20; i++){
-    $('#messages').append($('<li>').text(data[i]));
-    } */
- 
- var options = {
-     axes: {
-  	     xaxis: {
-  	   	     numberTicks: 10,
-             renderer:$.jqplot.DateAxisRenderer,
-             tickOptions:{formatString:'%H:%M:%S'},
-             min : data[0][0],
-             max: data[data.length-1][0]
-	     },
-	     yaxis: {min:0, max: 50,numberTicks: 6,
-  	             tickOptions:{formatString:'%.1f'} 
-	     }
-     },
-     seriesDefaults: {
-  	     rendererOptions: { smooth: true}
-     }
- };
- var plot1 = $.jqplot ('myChart', [data],options);
- 
- $('button').click( function(){  
-     doUpdate();
-     $(this).hide();
- });
-
- function doUpdate(){
-     var socket = io();
-
-     var count = 1;
-     socket.on('status', function(msg){
-
-         if(data.length > n-1){
-    	     data.shift();
-         }
-
-         // $('#messages').append($('<li>').text(msg['time']));
-
-         // 2015-04-25 00:00:00 -> date object
-         var match = msg['time'].match(/^(\d+)-(\d+)-(\d+) (\d+)\:(\d+)\:(\d+)$/);        
-         var dat = new Date(match[1], match[2] - 1, match[3], match[4], match[5], match[6]);
-
-         // new dat = new Date()
-         var x = dat.getTime(); // current time
-
-         // $('#messages').append($('<li>').text(count));
-         if(count == 1){
-             for(i=0; i<n-1; i++){
-                 if(data.length > n-1){
-    	             data.shift();
-                 }
-	             data.push([new Date(dat.getTime() - (n-1-i)*5*60000).getTime(),0]);
-             }
-             count = 2;             
-         }
-
-         if(data.length > n-1){
-    	     data.shift();
-         }
-
-         var y = msg["temperature"];
-         data.push([x,y]);
-         /* for (var i = 0; i < 20; i++){
-            var date = new Date(data[i][0]);
-            var time = date.toString()                 
-            $('#messages').append($('<li>').text(time + " " + data[i][1]));
-            } */
-         
-         if (plot1) {
-    	     plot1.destroy();
-         }
-         plot1.series[0].data = data; 
-         
-         options.axes.xaxis.min = data[0][0];
-         options.axes.xaxis.max = data[data.length-1][0];
-         plot1 = $.jqplot ('myChart', [data],options);
-     });
- }
-</script>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>realtime simulation</title>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script type="text/javascript" src="http://cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.min.js"></script>
+        <script type="text/javascript" src="http://cdn.jsdelivr.net/jqplot/1.0.8/plugins/jqplot.dateAxisRenderer.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/site.css">
+    </head>
+    <body>
+        <div id="map">
+            
+        </div>
+        <div id="simulation">
+            <div id="solar">
+                <div id="solar_simulation"></div>
+                <button type="button" class="btn">Start Updates</button>                
+            </div>
+            <div id="wind">                
+            </div>            
+        </div>        
+        <ul id="messages"></ul>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHNMUO2mCKy6p0DCc6OElvJD1lEE0HShU&callback=initMap">
+        </script>
+        <script type="text/javascript" src= "js/geo-map.js"></script>
+        <script type="text/javascript" src="js/realtime-simulation.js"> </script>
+    </body>
+</html>
