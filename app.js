@@ -16,7 +16,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+    // res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/realtime_ploting.html');
 });
 
 io.on('connection', function(socket) {
@@ -25,8 +26,8 @@ io.on('connection', function(socket) {
     var latter = new Date(2015, 03, 24, 00, 05, 00, 00);
     
     setInterval(function() {
-        previous = new Date(previous.getTime() + 10*60000);
-        latter = new Date(latter.getTime() + 10*60000);
+        previous = new Date(previous.getTime() + 5*60000);
+        latter = new Date(latter.getTime() + 5*60000);
         
         var total = {};
         pool.getConnection(function(err,connection){
@@ -50,18 +51,25 @@ io.on('connection', function(socket) {
                          latter.getHours(), ':',
                          latter.getMinutes(),':',
                          latter.getSeconds()] .join('');            
-            sql = 'select * from research_value where get_date >"' + prev_time + '" and get_date < "' + latter_time + '"; select * from research_value2';
+            sql = 'select * from research_value where get_date >"' + prev_time + '" and get_date < "' +
+                latter_time + '"; select * from research_value2';
             console.log(sql);
             connection.query(sql,function(err,first){
                 connection.release();
                 if(!err) {
-                    // console.log(first[0]);
-                    total["temperature"] = first[0];
-                    // total["power"] = first[1];
+
+                    var temperature_sum = 0;
+                    for (var i = 0; i < first[0].length; i++){
+                        temperature_sum += parseInt(first[0][i]["value"]);
+                    }                    
+                    console.log(temperature_sum);
+                    total["temperature"] = temperature_sum / first[0].length;
                     total["power"] = "second";
-                    // res.render('index.jade', total);
+                    total["time"] = prev_time;
+                    console.log("beginning");
+                    console.log(total);
+                    socket.emit('status', total);
                 }
-                // console.log(err);
             });
             
             // connection.on('error', function(err) {      
@@ -69,42 +77,15 @@ io.on('connection', function(socket) {
             //     return;     
             // });
         });
-        console.log("sent interval");        
-        socket.emit('status', total);        
+        console.log("sent interval");
+        console.log(total);
+
     }, 1 * 1000);
 });
 
 
-http.listen(3010, function(){
-  console.log('listening on *:3000');
+http.listen(3020, function(){
+  console.log('listening on *:3020');
 });
-
-// app.get('/', function(req, res, next) {
-
-//     var total = {};
-//     pool.getConnection(function(err,connection){
-//         if (err) {
-//           connection.release();
-//           res.json({"code" : 100, "status" : "Error in connection database"});
-//           return;
-//         }   
-//         console.log('connected as id ' + connection.threadId);
-
-//         connection.query('select * from research_value; select * from research_value2',function(err,first){
-//             connection.release();
-//             if(!err) {
-//                 total["temperature"] = first[0];
-//                 total["power"] = first[1];
-//                 res.render('index.jade', total);
-//             }
-//             console.log(err);
-//         });
-        
-//         connection.on('error', function(err) {      
-//               res.json({"code" : 100, "status" : "Error in connection database"});
-//               return;     
-//         });
-//     });
-// });
 
 app.listen(3000);
