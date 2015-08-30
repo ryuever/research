@@ -13,6 +13,7 @@
          var offset = {};
          var tracks
          var unlock = false;
+
          
          Array.prototype.sortBy = function(p) {
              return this.slice(0).sort(function(a,b) {
@@ -21,6 +22,7 @@
          }
          
          function initialize() {
+             window.coord_list = [];
              var obj = [];
              var sorted_obj = [];
              var map = new google.maps.Map(document.getElementById('map'), {
@@ -29,15 +31,50 @@
                  mapTypeId: google.maps.MapTypeId.ROADMAP
              });
 
-             $('#start_sim').click(function(){                 
+             $('#start_sim').click(function(){
                  sorted_obj = obj.sortBy('date');
-                 for (var i = 0; i < sorted_obj.length; i++) {
-                     alert(sorted_obj[i]['from'] + sorted_obj[i]['to'] + sorted_obj[i]['date']);
-                     //Do something
-                 }                
-                 start();
-                 $(this).attr('disabled','disabled');
-                 $('#terminate_sim').prop("disabled", false);
+
+                 var geocoder = new google.maps.Geocoder();
+                 
+                 for (var i = sorted_obj.length-1; i >= 0; i--) {
+                     geocodeAddress(geocoder, map, sorted_obj[i]['from']);
+                     geocodeAddress(geocoder, map, sorted_obj[i]['to']);
+                 };
+
+                 console.log(sorted_obj.length);
+                 
+                 setTimeout(function(){
+                     tracks = new google.maps.Polyline({ 
+                         // path : [kaifeng, shanghai, nagoya, sapporo,kyoto,shanghai, kaifeng],
+                         path : coord_list,
+                         geodesic: true,
+                         strokeOpacity: 1.0,
+                         strokeWeight: 0.05,
+                         icons: [{
+                             icon: {
+                                 path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                                 // path: "jpg/airplane.png",
+                                 strokeColor: 'red',
+                                 strokeOpacity: 1.0,
+                                 strokeWeight: 1,
+                                 fillColor: 'blue',
+                                 fillOpacity: 1.0,
+                                 scale: 1
+                             },
+                             repeat: '10%',
+                             offset: '5%'
+                         }],
+                         map: map,
+                     });    
+                     
+                     offset = {
+                         'tracks': 0,
+                     }
+                     
+                     start();
+                     $(this).attr('disabled','disabled');
+                     $('#terminate_sim').prop("disabled", false);
+                 }, 3000);                 
              });
 
              $('#terminate_sim').click(function(){
@@ -70,44 +107,12 @@
              $('#list').on('click', '.itemDelete', function() {
                  $(this).closest('li').remove();
              });
-
-          
-             var shanghai = new google.maps.LatLng(31.21, 121.47);
-             var kaifeng =  new google.maps.LatLng(34.797, 114.307);
-             var nagoya =  new google.maps.LatLng(35.181, 136.906);
-             var sapporo =  new google.maps.LatLng(43.062, 141.354);
-             var kyoto  = new google.maps.LatLng(35.011, 135.768);
-             
-             tracks = new google.maps.Polyline({ 
-                 path : [kaifeng, shanghai, nagoya, sapporo,kyoto,shanghai, kaifeng],
-                 geodesic: true,
-                 strokeOpacity: 1.0,
-                 strokeWeight: 0.05,
-                 icons: [{
-                     icon: {
-                         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                         // path: "jpg/airplane.png",
-                         strokeColor: 'black',
-                         strokeOpacity: 1.0,
-                         strokeWeight: 0.5,
-                         fillColor: 'blue',
-                         fillOpacity: 1.0,
-                         scale: 1
-                     },
-                     repeat: '10%',
-                     offset: '5%'
-                 }],
-                 map: map,
-             });    
-             
-             offset = {
-                 'tracks': 0,
-             }
          }
 
          function start() {
              timer = setInterval(function() {
                  animateTracks();
+                 console.log("start loop");
              }, 500);
          }
 
@@ -125,7 +130,28 @@
              icons[0].offset = offset['tracks'] + '%';
              tracks.set('icons', icons); 
          }
-         
+
+         function geocodeAddress(geocoder, resultsMap, address) {
+             // var address = document.getElementById('address').value;
+             var tttt = [];
+             var lat = 0;
+             var lng = 0;
+             var tt = "";
+             geocoder.geocode({'address': address}, function(results, status) {
+                 if (status === google.maps.GeocoderStatus.OK) {
+                     coord_list.push(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
+                 } else {
+                     alert('Geocode was not successful for the following reason: ' + status);
+                 }
+             });
+             console.log(tt);
+             console.log(lat.toString() + " 202");
+             console.log(lng.toString() + " 203");
+             console.log(tttt);
+             console.log(tttt[0] + " 205");
+             return {'lat':lat, 'lng':lng};
+         }
+
         </script>
         <style>
          #map {
@@ -141,7 +167,7 @@
              position : relative;
              float : right;
          }
-             
+         
          #start_sim{
              float : left;
              position : relative;
@@ -169,7 +195,6 @@
              position : relative;
              float : left;
          }
-         
         </style>
     </head>
     <body onload="initialize()">
