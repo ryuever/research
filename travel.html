@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>Symbols on polylines</title>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript">
+
+         var map, timer;
+         var offset = {};
+         var tracks
+         var unlock = false;
+         
+         Array.prototype.sortBy = function(p) {
+             return this.slice(0).sort(function(a,b) {
+                 return (a[p] > b[p]) ? 1 : (a[p] < b[p]) ? -1 : 0;
+             });
+         }
+         
+         function initialize() {
+             var obj = [];
+             var sorted_obj = [];
+             var map = new google.maps.Map(document.getElementById('map'), {
+                 center: {lat: 37.46, lng: 121.448},
+                 zoom: 5,
+                 mapTypeId: google.maps.MapTypeId.ROADMAP
+             });
+
+             $('#start_sim').click(function(){                 
+                 sorted_obj = obj.sortBy('date');
+                 for (var i = 0; i < sorted_obj.length; i++) {
+                     alert(sorted_obj[i]['from'] + sorted_obj[i]['to'] + sorted_obj[i]['date']);
+                     //Do something
+                 }                
+                 start();
+                 $(this).attr('disabled','disabled');
+                 $('#terminate_sim').prop("disabled", false);
+             });
+
+             $('#terminate_sim').click(function(){
+                 stop();
+                 $(this).attr('disabled','disabled');
+                 $('#start_sim').prop("disabled", false);
+             });
+
+             $('#datetimepicker').datetimepicker();
+
+             $('#add').click(function(){
+                 event.preventDefault(); // stop default behaviour of submit button
+                 from = $('#from').val();
+                 to = $('#to').val();
+                 date = $('#datetimepicker').val();
+
+                 var match = date.match(/^(\d+)\/(\d+)\/(\d+) (\d+)\:(\d+)$/);        
+                 var dat = new Date(match[1], match[2] - 1, match[3], match[4], match[5]);
+
+                 obj.push({"from":from, "to":to, "date":dat}); 
+                 
+                 // add new list item
+                 $('#list').prepend('<li> ' + from +'->' + to + ' : ' + date + '<a href="#" class="itemDelete"> D </a>' + '</li>');
+                 // clear value input
+                 $('#from').val('');
+                 $('#to').val('');
+                 $('#datetimepicker').val('');                 
+             });
+
+             $('#list').on('click', '.itemDelete', function() {
+                 $(this).closest('li').remove();
+             });
+
+          
+             var shanghai = new google.maps.LatLng(31.21, 121.47);
+             var kaifeng =  new google.maps.LatLng(34.797, 114.307);
+             var nagoya =  new google.maps.LatLng(35.181, 136.906);
+             var sapporo =  new google.maps.LatLng(43.062, 141.354);
+             var kyoto  = new google.maps.LatLng(35.011, 135.768);
+             
+             tracks = new google.maps.Polyline({ 
+                 path : [kaifeng, shanghai, nagoya, sapporo,kyoto,shanghai, kaifeng],
+                 geodesic: true,
+                 strokeOpacity: 1.0,
+                 strokeWeight: 0.05,
+                 icons: [{
+                     icon: {
+                         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                         // path: "jpg/airplane.png",
+                         strokeColor: 'black',
+                         strokeOpacity: 1.0,
+                         strokeWeight: 0.5,
+                         fillColor: 'blue',
+                         fillOpacity: 1.0,
+                         scale: 1
+                     },
+                     repeat: '10%',
+                     offset: '5%'
+                 }],
+                 map: map,
+             });    
+             
+             offset = {
+                 'tracks': 0,
+             }
+         }
+
+         function start() {
+             timer = setInterval(function() {
+                 animateTracks();
+             }, 500);
+         }
+
+         function stop() {
+             clearInterval(timer);
+         }
+
+         function animateTracks() {
+             if (offset['tracks'] == 9) {
+                 offset['tracks'] = 0;
+             } else {
+                 offset['tracks']++;
+             }
+             var icons = tracks.get('icons');
+             icons[0].offset = offset['tracks'] + '%';
+             tracks.set('icons', icons); 
+         }
+         
+        </script>
+        <style>
+         #map {
+             width: 85%;
+             height: 100%;
+             position: absolute;
+             background-color: white;
+             border: 1px solid black;
+         }
+         #container{
+             width: 15%;
+             height: 100%;
+             position : relative;
+             float : right;
+         }
+             
+         #start_sim{
+             float : left;
+             position : relative;
+             width : 95%;
+             height : 30px;
+         }
+
+         #terminate_sim{
+             float : left;
+             position : relative;
+             width : 95%;
+             height : 30px;             
+         }
+
+         .form-control{
+             float : left;
+             position : relative;
+             width : 99%;
+             height : 30px;                          
+         }
+         #add{
+             float : left;
+         }
+         #list{
+             position : relative;
+             float : left;
+         }
+         
+        </style>
+    </head>
+    <body onload="initialize()">
+        <div id="map"></div>
+        <div id="container">
+            <button type="button" class="btn btn-default" id="start_sim">Start Simulation</button>
+            <button type="button" class="btn btn-default" id="terminate_sim">Terminate Simulation</button>
+            <form class="form-inline">
+                <input class="form-control" type="text" id ="from" placeholder ="From ...">
+                <input class="form-control" type="text" id ="to" placeholder ="To ...">
+                <input class="form-control" id="datetimepicker" type="text" >                
+                <button class="btn btn-default" id ="add">Add Item</button>
+            </form>
+            <ul id="list"></ul>
+        </div>
+    </body>
+    <link rel="stylesheet" type="text/css" href="js/datetimepicker/jquery.datetimepicker.css">
+    <script src="js/datetimepicker/jquery.js"></script>
+    <script src="js/datetimepicker/jquery.datetimepicker.js"></script>
+</html>
