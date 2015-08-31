@@ -1,11 +1,10 @@
 $(document).ready(function(){
-    $('.controls > .btn-success').one('click', function() {
+    $('#solar_start_btn').one('click', function() {
         solar_doUpdate();
         $(this).attr('disabled','disabled');
     });
 
-
-    $('.controls > .btn-wind').one('click', function() {
+    $('#windTurbine_start_btn').one('click', function() {
         wind_doUpdate();
         $(this).attr('disabled','disabled');
     });
@@ -47,7 +46,7 @@ var options_solar = {
     }
 };
 
-var plot1 = $.jqplot ('solar_simulation', [solar_data],options_solar);
+var plot1 = $.jqplot ('solarPV_simulation', [solar_data],options_solar);
 
 function solar_doUpdate(){
     var socket = io();
@@ -90,7 +89,7 @@ function solar_doUpdate(){
         
         options_solar.axes.xaxis.min = solar_data[0][0];
         options_solar.axes.xaxis.max = solar_data[solar_data.length-1][0];
-        plot1 = $.jqplot ('solar_simulation', [solar_data],options_solar);
+        plot1 = $.jqplot ('solarPV_simulation', [solar_data],options_solar);
     });
 }
 
@@ -124,7 +123,7 @@ var options_wind = {
     }
 };
 
-var plot2 = $.jqplot ('wind_simulation', [wind_data],options_wind);
+var plot2 = $.jqplot ('windTurbine_simulation', [wind_data],options_wind);
 
 function wind_doUpdate(){
     var socket = io();
@@ -167,7 +166,7 @@ function wind_doUpdate(){
         
         options_wind.axes.xaxis.min = wind_data[0][0];
         options_wind.axes.xaxis.max = wind_data[wind_data.length-1][0];
-        plot2 = $.jqplot ('wind_simulation', [wind_data],options_wind);
+        plot2 = $.jqplot ('windTurbine_simulation', [wind_data],options_wind);
     });
 }
 

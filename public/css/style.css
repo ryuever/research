@@ -13,7 +13,8 @@ html, body {
     height : 85%;
     width : 100%;
 }    
-.map{
+
+#map{
     /* border : 1px solid; */
     border : 1px solid;
     height : 100%;
@@ -36,10 +37,102 @@ html, body {
     /* background : yellow; */
 }
 
+#solarPV_simulation{
+    width : 60%;
+    height : 95%;
+    float : left;
+}
+
+#solarPV_factors{
+    float : left;
+    width :35%;
+    height : 100%;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 7px;
+}
+
+#solarPV_factor #solar_factor_tbl{
+    float : left;
+    width : 100%;
+    padding : 2px 2px;
+    /* padding : 2px; */
+}
+
+#solar_factor_tbl tr{
+    /* margin : 2px; */
+    width : 96%;
+    height : 2%;
+}
+
+#solar_factor_tbl td{
+    height : 2%;
+}
+
+#solar_factor_tbl table tbody tr td label{
+    width : 30%;
+}
+
+#solar_factor_tbl table tbody tr td input{
+    width : 60%;
+}
+
+#solar_start_btn{
+    font-size : 10px;
+    padding : 2px 4px;
+    margin-top : 2px;
+    margin-left: 45%;
+}
+
+#windTurbine_factors{
+    float : left;
+    width :35%;
+    height : 100%;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 10px;
+}
+
+#windTurbine_factor #solar_factor_tbl{
+    float : left;
+    width : 100%;
+    /* padding : 2px; */
+}
+
+#windTurbine_factor_tbl tr{
+    /* margin : 2px; */
+    width : 96%;
+    height : 4%;
+}
+
+#windTurbine_factor_tbl table tbody tr td label{
+    width : 30%;
+}
+
+#windTurbine_factor_tbl table tbody tr td input{
+    width : 60%;
+}
+
+#windTurbine_start_btn{
+    font-size : 10px;
+    padding : 2px 4px;
+    margin-top : 2px;
+    margin-left: 45%;
+}
+
 .wind{
     /* border : 1px solid; */
     border : 1px solid;
     width : 100%;
     height : 50%;
     /* background : silver; */
+}
+
+#windTurbine_simulation{
+    width : 60%;
+    height : 95%;
+    float : left;
+}
+
+#windTurbine_factors{
+    float: left;
+    width :35%;
 }

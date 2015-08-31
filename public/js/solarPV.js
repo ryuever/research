@@ -5,6 +5,18 @@ function c2f(c_temp){
     return c_temp * 9 / 5 + 32;
 }
 
+document.getElementById("V_max").defaultValue = 43.4;
+document.getElementById("Voc_max").defaultValue = 53;
+document.getElementById("Voc_temp_coeff").defaultValue = -0.147;
+document.getElementById("module_Tcoeff").defaultValue = -0.336;
+document.getElementById("module_acoeff").defaultValue = -2.81;
+document.getElementById("module_bcoeff").defaultValue = -0.0455;
+document.getElementById("module_dTcoeff").defaultValue = 0.0;
+document.getElementById("soiling_factor").defaultValue = 0;
+document.getElementById("efficiency").defaultValue = 0;
+document.getElementById("size").defaultValue = 1.5;
+document.getElementById("derating_factor").defaultValue = 0.5;
+
 function md2doy(year, month, day){
     if ((year % 4 == 0) && (year % 100 != 0 || year % 400 == 0 ))
         leap = 1;

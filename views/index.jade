@@ -5,13 +5,11 @@ block navbar
 block content
   .content
     block map
-      .map
+      #map
     block simulation
       .simulation
         block solar
           .solar
-            block solarPV_simulation
-            block solarPV_factors
+            include ./includes/solarPV.jade
           .wind
-            block windTurbine_simulation
-            block windTurbine_factors
+            include ./includes/windTurbine.jade
