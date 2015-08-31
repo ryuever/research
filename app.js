@@ -1,5 +1,7 @@
 var express   =    require("express");
 var mysql     =    require('mysql');
+var path = require('path');
+
 
 var pool      =    mysql.createPool({
     connectionLimit : 1000, //important
@@ -15,13 +17,19 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/realtime_ploting.html');
-});
+var routes = require('./routes/index');
+app.use('/', routes);
 
-app.get('/travel', function(req, res){
-    res.sendFile(__dirname + '/travel.html');
-});
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// app.get('/', function(req, res){
+//     res.sendFile(__dirname + '/realtime_ploting.html');
+// });
+
+// app.get('/travel', function(req, res){
+//     res.sendFile(__dirname + '/travel.html');
+// });
 
 // make the local file could be visible to server
 app.use(express.static(__dirname + '/public'));
