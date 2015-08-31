@@ -48,7 +48,7 @@ html, body {
     width :35%;
     height : 100%;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 7px;
+    font-size: 9px;
 }
 
 #solarPV_factor #solar_factor_tbl{
@@ -100,7 +100,7 @@ html, body {
 #windTurbine_factor_tbl tr{
     /* margin : 2px; */
     width : 96%;
-    height : 4%;
+    height : 5%;
 }
 
 #windTurbine_factor_tbl table tbody tr td label{
@@ -135,4 +135,12 @@ html, body {
 #windTurbine_factors{
     float: left;
     width :35%;
+}
+
+.panel {
+    display: none;
+    width: 100px;
+    background: #ccc;
+    min-height: 20px;
+    position: absolute
 }

@@ -12,7 +12,18 @@ $(document).ready(function(){
     // $('#myForm').ajaxForm(function() { 
     //             alert("Thank you for your comment!"); 
     // }); 
-    
+
+    $('.item-wrapper a').mouseenter(function () {
+        console.log($(this).data('panel'));
+        // alert("hello");
+        if ($(this).data('panel')) {
+            $('.panel').hide();
+            $('#' + $(this).data('panel')).show();
+        }
+    });
+    $('.item-wrapper a').mouseleave(function () {
+        $('.panel').hide();
+    });    
 });
 
 var t = 1000;
