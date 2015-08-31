@@ -7,12 +7,12 @@ html, body {
     float: left;
     height: 50%;
     width: 40%;
+    position: absolute;
 }
 
 #simulation {
     float: right;
-    text-align: center
-                    font-family: 'Roboto','sans-serif';
+    font-family: 'Roboto','sans-serif';
     height: 100%;
     line-height: 30px;
     padding-left: 10px;
@@ -20,14 +20,27 @@ html, body {
 }
 
 #simulation > #solar {
-    height: 300px;
-    width: 480px;
-}
-#simulation > #solar > #solar_simulation {
-    width: 450;
+    width : 100%;
+    height : 50%;
 }
 
-#simulation > #solar > .btn {
-    margin-left:50%;
-    margin-right:50%;
+#simulation > #solar > #solar_simulation {
+    width: 60%;
+    position : relative;
 }
+
+#simulation > #solar .form_horizontal{
+    width: 35%;
+}
+
+#simulation > #wind {
+    height : 50%;
+}
+
+#simulation > #wind > #wind_simulation{
+    width : 60%;
+}
+
+/* #simulation > #solar > #start_sim_btn { */
+/*     margin-left:50%; */
+/* } */
