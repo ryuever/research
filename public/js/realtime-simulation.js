@@ -1,21 +1,25 @@
 $(document).ready(function(){
-    $('#solar_start_btn').one('click', function() {
+    // $('#solar_start_btn').one('click', function() {
+    //     solar_doUpdate();
+    //     $(this).attr('disabled','disabled');
+    // });
+    $('#solar_start_btn').click(function() {
+        alert("solar start");
         solar_doUpdate();
-        $(this).attr('disabled','disabled');
+        // $(this).attr('disabled','disabled');
     });
 
+    // $('#solar_terminate_btn').click(function(){
+    //     clearInterval(timer);
+    // });
+    
     $('#windTurbine_start_btn').one('click', function() {
         wind_doUpdate();
         $(this).attr('disabled','disabled');
     });
 
-    // $('#myForm').ajaxForm(function() { 
-    //             alert("Thank you for your comment!"); 
-    // }); 
-
     $('.item-wrapper a').mouseenter(function () {
         console.log($(this).data('panel'));
-        // alert("hello");
         if ($(this).data('panel')) {
             $('.panel').hide();
             $('#' + $(this).data('panel')).show();
@@ -37,6 +41,7 @@ for(i=0; i<n; i++){
 }
 
 var options_solar = {
+    title:'Simulation of solar PV', 
     axes: {
   	    xaxis: {
   	   	    numberTicks: 10,
@@ -62,8 +67,16 @@ var plot1 = $.jqplot ('solarPV_simulation', [solar_data],options_solar);
 
 function solar_doUpdate(){
     var socket = io();
+    console.log(socket);
     var count = 1;
-    socket.on('status', function(msg){
+    console.log('in solar_doUPdate');
+    
+    $('#solar_terminate_btn').click(function(){
+        socket.emit('close_socket', "close_socket");
+    });
+
+    // socket.on('status', function(msg){
+    socket.on('status', function(msg){        
 
         if(solar_data.length > n-1){
     	    solar_data.shift();
@@ -80,7 +93,7 @@ function solar_doUpdate(){
                 if(solar_data.length > n-1){
     	            solar_data.shift();
                 }
-	            solar_data.push([new Date(dat.getTime() - (n-1-i)*5*60000).getTime(),0]);
+	            solar_data.push([new Date(dat.getTime() - (n-1-i)*10*60000).getTime(),0]);
             }
             count = 2;             
         }
@@ -91,21 +104,20 @@ function solar_doUpdate(){
 
         var solar_obj = new solarPV();
         var power = solar_obj.generatedPower(msg['temperature'], msg['wind'], msg['radiation']);
+        console.log("power" + power.toString());
         // var y = msg["temperature"];
         solar_data.push([x,power]);
         
         if (plot1) {
     	    plot1.destroy();
         }
-        plot1.series[0].data = solar_data; 
+        plot1.series[0].data = solar_data;
         
         options_solar.axes.xaxis.min = solar_data[0][0];
         options_solar.axes.xaxis.max = solar_data[solar_data.length-1][0];
         plot1 = $.jqplot ('solarPV_simulation', [solar_data],options_solar);
     });
 }
-
-
 
 /*--------------------- wind Turbine simulation  --------------------*/
 var wind_data = [];
@@ -116,6 +128,7 @@ for(i=0; i<n; i++){
 }
 
 var options_wind = {
+    title:'Simulation of Wind Turbine', 
     axes: {
   	    xaxis: {
   	   	    numberTicks: 10,

@@ -12,32 +12,45 @@ document.getElementById("ws_rated").defaultValue = 13;
 document.getElementById("turbine_height").defaultValue = 10;
 document.getElementById("ref_height").defaultValue = 4;
 
-var windTurbine = function(module, diameter, cut_in_ws, cut_out_ws, cp_max,
-                           ws_maxcp, cp_rated, ws_rated,turbine_height,
-                           ref_height){
+// var windTurbine = function(module, diameter, cut_in_ws, cut_out_ws, cp_max,
+//                            ws_maxcp, cp_rated, ws_rated,turbine_height,
+//                            ref_height){
+var windTurbine = function(){
     this.module = typeof module !== 'undefined' ? module : "small";
     
-    if (module == "smart"){
-        this.diameter = typeof diameter !== 'undefined' ? diameter : 4.4;
-        this.cut_in_ws = typeof cut_in_ws !== 'undefined' ? cut_in_ws : 2.5;
-        this.cut_out_ws = typeof cut_out_ws !== 'undefined' ? cut_out_ws : 15;
-        this.cp_max = typeof cp_max !== 'undefined' ? cp_max : 0.478;
-        this.ws_maxcp = typeof ws_maxcp !== 'undefined' ? ws_maxcp : 6;
-        this.cp_rated = typeof cp_rated !== 'undefined' ? cp_rated : 0.188;
-        this.ws_rated = typeof ws_rated !== 'undefined' ? ws_rated : 13;
-        this.turbine_height = typeof turbine_height !== 'undefined' ? turbine_height : 10;
-        this.ref_height = typeof ref_height !== 'undefined' ? ref_height : 4;
-    }else{
-        this.diameter = typeof diameter !== 'undefined' ? diameter : 80;
-        this.cut_in_ws = typeof cut_in_ws !== 'undefined' ? cut_in_ws : 4;
-        this.cut_out_ws = typeof cut_out_ws !== 'undefined' ? cut_out_ws : 25;
-        this.cp_max = typeof cp_max !== 'undefined' ? cp_max : 0.489;
-        this.ws_maxcp = typeof ws_maxcp !== 'undefined' ? ws_maxcp : 8;
-        this.cp_rated = typeof cp_rated !== 'undefined' ? cp_rated : 0.296;
-        this.ws_rated = typeof ws_rated !== 'undefined' ? ws_rated : 13;
-        this.turbine_height = typeof turbine_height !== 'undefined' ? turbine_height : 65;
-        this.ref_height = typeof ref_height !== 'undefined' ? ref_height : 10;
-    }
+    // if (module == "smart"){
+    //     this.diameter = typeof diameter !== 'undefined' ? diameter : 4.4;
+    //     this.cut_in_ws = typeof cut_in_ws !== 'undefined' ? cut_in_ws : 2.5;
+    //     this.cut_out_ws = typeof cut_out_ws !== 'undefined' ? cut_out_ws : 15;
+    //     this.cp_max = typeof cp_max !== 'undefined' ? cp_max : 0.478;
+    //     this.ws_maxcp = typeof ws_maxcp !== 'undefined' ? ws_maxcp : 6;
+    //     this.cp_rated = typeof cp_rated !== 'undefined' ? cp_rated : 0.188;
+    //     this.ws_rated = typeof ws_rated !== 'undefined' ? ws_rated : 13;
+    //     this.turbine_height = typeof turbine_height !== 'undefined' ? turbine_height : 10;
+    //     this.ref_height = typeof ref_height !== 'undefined' ? ref_height : 4;
+    // }else{
+    //     this.diameter = typeof diameter !== 'undefined' ? diameter : 80;
+    //     this.cut_in_ws = typeof cut_in_ws !== 'undefined' ? cut_in_ws : 4;
+    //     this.cut_out_ws = typeof cut_out_ws !== 'undefined' ? cut_out_ws : 25;
+    //     this.cp_max = typeof cp_max !== 'undefined' ? cp_max : 0.489;
+    //     this.ws_maxcp = typeof ws_maxcp !== 'undefined' ? ws_maxcp : 8;
+    //     this.cp_rated = typeof cp_rated !== 'undefined' ? cp_rated : 0.296;
+    //     this.ws_rated = typeof ws_rated !== 'undefined' ? ws_rated : 13;
+    //     this.turbine_height = typeof turbine_height !== 'undefined' ? turbine_height : 65;
+    //     this.ref_height = typeof ref_height !== 'undefined' ? ref_height : 10;
+    // }
+
+    this.diameter = parseFloat(document.getElementById("diameter").value);
+    this.cut_in_ws = parseFloat(document.getElementById("cut_in_ws").value);
+    this.cut_out_ws = parseFloat(document.getElementById("cut_out_ws").value);
+    this.cp_max = parseFloat(document.getElementById("cp_max").value);
+    this.ws_maxcp = parseFloat(document.getElementById("ws_maxcp").value);
+    this.cp_rated = parseFloat(document.getElementById("cp_rated").value);
+    this.ws_rated = parseFloat(document.getElementById("ws_rated").value);
+    this.turbine_height = parseFloat(document.getElementById("turbine_height").value);
+    this.ref_height = parseFloat(document.getElementById("ref_height").value);
+    
+    
 };
 
 windTurbine.prototype.ws_adj = function(ws){

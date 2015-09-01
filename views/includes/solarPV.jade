@@ -66,14 +66,15 @@ block solarPV_factors
           input(id='derating_factor')
           .panel#panel-derating_factor
             p manufacturing variations 5% reduction of energy transferring          
+
       tr
         td
-          a(href='#' data-panel="panel-efficiency") efficiency
+          a(href='#' data-panel="panel-solar_efficiency") efficiency
         td
-          input(id='efficiency')
-          .panel#panel-efficiency
-            p depending on solar panel type
-          
+          input(id='solar_efficiency')
+          .panel#panel-solar_efficiency
+            p depending on solar panel
+
       tr
         td
           a(href='#' data-panel="panel-size") size
@@ -81,7 +82,7 @@ block solarPV_factors
           input(id='size')
           .panel#panel-size
             p depending on solar panel
-          
+            
      //-  tr
      //-    td
      //-      label panel_type_v
@@ -90,3 +91,4 @@ block solarPV_factors
      //-        option 
      //-      input(id='panel_type_v')
     button(class = 'btn btn-default', id='solar_start_btn') Start     
+    button(class = 'btn btn-default', id='solar_terminate_btn') End

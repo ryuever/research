@@ -117,6 +117,13 @@ html, body {
     margin-left: 45%;
 }
 
+#solar_terminate_btn{
+    font-size : 10px;
+    padding : 2px 4px;
+    margin-top : 2px;
+}
+
+
 #windTurbine_factors{
     float : left;
     width :35%;

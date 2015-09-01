@@ -23,6 +23,7 @@ app.use('/', routes);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+
 // app.get('/', function(req, res){
 //     res.sendFile(__dirname + '/realtime_ploting.html');
 // });
@@ -35,11 +36,19 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket) {
+
+    socket.on("close_socket", function(){
+        // socket.close();
+        socket.disconnect();
+        // clearInterval(timer);
+        console.log("socket is closed");
+    });
+    var timer;
     console.log("connection established");
     var previous = new Date(2015, 03, 26, 00, 00, 00, 00);
     var latter = new Date(2015, 03, 26, 00, 05, 00, 00);
     
-    setInterval(function() {
+    timer = setInterval(function() {
         previous = new Date(previous.getTime() + 5*60000);
         latter = new Date(latter.getTime() + 5*60000);
         

@@ -12,10 +12,10 @@ document.getElementById("module_Tcoeff").defaultValue = -0.336;
 document.getElementById("module_acoeff").defaultValue = -2.81;
 document.getElementById("module_bcoeff").defaultValue = -0.0455;
 document.getElementById("module_dTcoeff").defaultValue = 0.0;
-document.getElementById("soiling_factor").defaultValue = 0;
-document.getElementById("efficiency").defaultValue = 0;
-document.getElementById("size").defaultValue = 1.5;
-document.getElementById("derating_factor").defaultValue = 0.5;
+document.getElementById("soiling_factor").defaultValue = 0.95;
+document.getElementById("solar_efficiency").defaultValue = 0.2;
+document.getElementById("size").defaultValue = 12.8;
+document.getElementById("derating_factor").defaultValue = 0.95;
 
 function md2doy(year, month, day){
     if ((year % 4 == 0) && (year % 100 != 0 || year % 400 == 0 ))
@@ -28,36 +28,45 @@ function md2doy(year, month, day){
     return doy;
 }
 
-var solarPV = function(V_max, Voc_max, Voc_temp_coeff, module_Tcoeff,
-                       module_acoeff, module_bcoeff, module_dTcoeff,
-                       soiling_factor, derating_factor, efficiency,
-                       Pmax_temp_coeff, size, panel_type_v){    
-    this.V_max = typeof V_max !== 'undefined' ? V_max : 43.4;
-    this.Voc_max = typeof Voc_max !== 'undefined' ? Voc_max : 53;
-    this.Voc_temp_coeff = typeof Voc_temp_coeff !== 'undefined' ? Voc_temp_coeff : -0.147;
-    this.module_Tcoeff = typeof module_Tcoeff !== 'undefined' ? module_Tcoeff : -0.336;
-    this.module_acoeff = typeof module_acoeff !== 'undefined' ? module_acoeff : -2.81;
-    this.module_bcoeff = typeof module_bcoeff !== 'undefined' ? module_bcoeff : -0.0455;
-    this.module_dTcoeff = typeof module_dTcoeff !== 'undefined' ? module_dTcoeff : 0.0;
-    this.soiling_factor = typeof soiling_factor !== 'undefined' ? soiling_factor : 0;
-    this.derating_factor = typeof derating_factor !== 'undefined' ? derating_factor : 0;
-    this.efficiency = typeof efficiency !== 'undefined' ? efficiency : 0;
-    this.Pmax_temp_coeff = typeof Pmax_temp_coeff !== 'undefined' ? Pmax_temp_coeff : 0;
-    this.size = typeof size !== 'undefined' ? size : 1.5;
-    this.panel_type_v = typeof panel_type_v !== 'undefined' ? panel_type_v : "single_crystal_silicon";    
+// var solarPV = function(V_max, Voc_max, Voc_temp_coeff, module_Tcoeff,
+//                        module_acoeff, module_bcoeff, module_dTcoeff,
+//                        soiling_factor, derating_factor, efficiency,
+//                        Pmax_temp_coeff, size, panel_type_v){
 
-    if (soiling_factor <= 0 || soiling_factor > 1.0 || typeof soiling_factor == 'undefined'){
+var solarPV = function(){
+    // this.V_max = typeof V_max !== 'undefined' ? V_max : 43.4;
+    // this.Voc_max = typeof Voc_max !== 'undefined' ? Voc_max : 53;
+    // this.Voc_temp_coeff = typeof Voc_temp_coeff !== 'undefined' ? Voc_temp_coeff : -0.147;
+    // this.module_Tcoeff = typeof module_Tcoeff !== 'undefined' ? module_Tcoeff : -0.336;
+    // this.module_acoeff = typeof module_acoeff !== 'undefined' ? module_acoeff : -2.81;
+    // this.module_bcoeff = typeof module_bcoeff !== 'undefined' ? module_bcoeff : -0.0455;
+    // this.module_dTcoeff = typeof module_dTcoeff !== 'undefined' ? module_dTcoeff : 0.0;
+    // this.soiling_factor = typeof soiling_factor !== 'undefined' ? soiling_factor : 0;
+    // this.derating_factor = typeof derating_factor !== 'undefined' ? derating_factor : 0;
+    // this.efficiency = typeof efficiency !== 'undefined' ? efficiency : 0;
+    // this.Pmax_temp_coeff = typeof Pmax_temp_coeff !== 'undefined' ? Pmax_temp_coeff : 0;
+    // this.size = typeof size !== 'undefined' ? size : 1.5;
+
+    this.V_max = parseFloat(document.getElementById("V_max").value);
+    this.Voc_max = parseFloat(document.getElementById("Voc_max").value);
+    this.Voc_temp_coeff = parseFloat(document.getElementById("Voc_temp_coeff").value);
+    this.module_Tcoeff = parseFloat(document.getElementById("module_Tcoeff").value);
+    this.module_acoeff = parseFloat(document.getElementById("module_acoeff").value);
+    this.module_bcoeff = parseFloat(document.getElementById("module_bcoeff").value);
+    this.module_dTcoeff = parseFloat(document.getElementById("module_dTcoeff").value);
+    this.soiling_factor = parseFloat(document.getElementById("soiling_factor").value);
+    this.efficiency_factor = parseFloat(document.getElementById("solar_efficiency").value);
+    this.size = parseFloat(document.getElementById("size").value);
+    this.derating_factor = parseFloat(document.getElementById("derating_factor").value);
+    
+    if (this.soiling_factor <= 0 || this.soiling_factor > 1.0 ){
         this.soiling_factor = 0.95;
         console.log("Invalid soiling factor specified, defaulting to 95%");
-    }else{
-        this.soiling_factor = soiling_factor;
     }
-
-    if (derating_factor <= 0 || derating_factor > 1.0 || typeof derating_factor == 'undefined'){
+    
+    if (this.derating_factor <= 0 || this.derating_factor > 1.0){
         this.derating_factor = 0.95;
         console.log("Invalid derating factor specified, defaulting to 95%");
-    }else{
-        this.derating_factor = derating_factor;
     }
 };
 
@@ -66,6 +75,12 @@ solarPV.prototype.generatedPower = function(temp,wind,power){
     // var month = timestamp.getMonth();
     // var day = timestamp.getDay();
     // doy = md2doy(year, month, day);
+
+    // console.log(this.V_max.toString());
+    // console.log(this.soiling_factor.toString());
+    // console.log(this.size.toString());
+    // console.log(this.derating_factor.toString());
+    // console.log(this.Voc_temp_coeff.toString());
 
     var Tambient = temp;
     var insolwmsq = 0.95 * power;
@@ -78,9 +93,8 @@ solarPV.prototype.generatedPower = function(temp,wind,power){
     // Conversion from Celsius to Fahrenheit
     var Tmodule = c2f(Tback);
     var tempcorr = 1.0 + this.module_Tcoeff * (Tcell - 25.0)/100;
-    var efficiency = 0.2;          
-
-    var P_Out = insolwmsq * this.derating_factor * 12.8 * efficiency * tempcorr;
+    // this.efficiency = 0.2;
+    var P_Out = insolwmsq * this.derating_factor * this.size * this.efficiency_factor * tempcorr;
 
     var VA_Out = P_Out;
     var Voc = this.Voc_max * (1 + this.Voc_temp_coeff * (Tmodule - 77) / 100);
