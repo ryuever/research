@@ -4,7 +4,7 @@ html, body {
 
 .navbar {
     border : 1px solid;
-    height : 10%;
+    height : 8%;
     boarder : 1px;
     /* background : red; */
 }
@@ -184,4 +184,50 @@ html, body {
     background: #ccc;
     min-height: 20px;
     position: absolute
+}
+
+
+
+/* css for travel */
+.travel_content{
+    height : 85%;
+    width : 100%;
+}
+
+#travel_map {
+    width: 85%;
+    height: 100%;
+    float : left;
+    background-color: white;
+    border: 1px solid black;
+}
+
+#travel_container{
+    width: 15%;
+    height: 100%;
+    float : right;
+}
+
+#travel_start_sim{
+    float : left;
+    width : 95%;
+    height : 5%;
+}
+
+#travel_terminate_sim{
+    float : left;
+    width : 95%;
+    height : 5%;             
+}
+
+#travel_form .form-control{
+    float : left;
+    width : 99%;
+    height : 30px;                          
+}
+#travel_add{
+    float : left;
+}
+#travel_list{
+    float : left;
 }

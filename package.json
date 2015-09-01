@@ -1,0 +1,26 @@
+{
+  "name": "research",
+  "version": "1.0.0",
+  "description": "node.js to implement real time simulation",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.10.2",
+    "jade": "^1.11.0",
+    "mysql": "^2.9.0",
+    "socket.io": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryuever/research.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryuever/research/issues"
+  },
+  "homepage": "https://github.com/ryuever/research#readme"
+}

@@ -17,12 +17,20 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var routes = require('./routes/index');
-app.use('/', routes);
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(express.static(__dirname + '/public'));
+
+var routes = require('./routes/index');
+app.use('/', routes);
+
+var travels = require('./routes/travel');
+app.use('/travel', travels);
+
+// app.get('/travel', function(req, res){
+//     res.sendFile(__dirname + '/travel.html');
+// });
 
 // app.get('/', function(req, res){
 //     res.sendFile(__dirname + '/realtime_ploting.html');
@@ -33,7 +41,7 @@ app.set('view engine', 'jade');
 // });
 
 // make the local file could be visible to server
-app.use(express.static(__dirname + '/public'));
+
 
 io.on('connection', function(socket) {
 

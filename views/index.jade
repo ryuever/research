@@ -1,20 +1,45 @@
 extends layout
+block head
+  head
+    title #{title}    
 
-block navbar
-  .navbar
-block content
-  .content
-    block solar_position
-      #solar_position
-        block map
-          #map
-        block radiation
-          #radiation
-            include ./includes/radiation.jade
-    block simulation
-      .simulation
-        block solar
-          .solar
-            include ./includes/solarPV.jade
-          .wind
-            include ./includes/windTurbine.jade
+    link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    link(rel='stylesheet', href="http://cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.min.css")    
+    link(rel='stylesheet', href='css/style.css')
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
+    script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+    script(src="http://code.jquery.com/jquery-1.9.1.min.js")
+    script(src="http://code.jquery.com/jquery-1.10.1.js")
+    script(src="https://cdn.socket.io/socket.io-1.2.0.js")
+    script(src="http://code.jquery.com/jquery-1.11.1.js")
+    script(src="http://cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.min.js")
+    script(src="http://cdn.jsdelivr.net/jqplot/1.0.8/plugins/jqplot.dateAxisRenderer.min.js")
+    // script(src="http://www.jqplot.com/deploy/dist/jquery.jqplot.min.js")
+    script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHNMUO2mCKy6p0DCc6OElvJD1lEE0HShU&callback=initMap")    
+    
+  body
+    block navbar
+      .navbar
+        include ./includes/navbar.jade
+    block content
+      .content
+        block solar_position
+          #solar_position
+            block map
+              #map
+            block radiation
+              #radiation
+                include ./includes/radiation.jade
+        block simulation
+          .simulation
+            block solar
+              .solar
+                include ./includes/solarPV.jade
+              .wind
+                include ./includes/windTurbine.jade
+    script(src="js/geo-map.js")
+    script(src="js/SolarPV.js")
+    script(src="js/windTurbine.js")
+    script(src="js/solarAngle.js")    
+    script(src="js/realtime-simulation.js")    
+    script(src="js/radiation-simulation.js")

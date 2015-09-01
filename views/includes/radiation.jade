@@ -1,0 +1,42 @@
+block radiation_simulation
+  #radiation_simulation
+block radiation_factors
+  #radiation_factor.item-wrapper
+    table#radiation_factor_tbl
+      tr
+        td 
+          a(href='#' data-panel="panel-rad_lat") lat
+        td
+          input(id='rad_lat')
+          .panel#panel-rad_lat
+            p latitude
+      tr
+        td
+          a(href='#' data-panel="panel-rad_lng") lng
+        td
+          input(id='rad_lng')
+          .panel#panel-rad_lng
+            p longitude
+      tr
+        td
+          a(href='#' data-panel="panel-rad_date") date
+        td
+          input(id='rad_date')
+          .panel#panel-rad_date
+            p longitude                   
+      tr
+        td
+          a(href='#' data-panel="panel-rad_rh") rh
+        td
+          input(id='rad_rh')
+          .panel#panel-rad_rh
+            p relative humidity
+      tr
+        td
+          a(href='#' data-panel="panel-rad_rainfall") rainfall
+        td
+          input(id='rad_rainfall')
+          .panel#panel-rad_rainfall
+            p average rainfall on a daily day
+
+    button(class = 'btn btn-default', id='radiation_start_btn') Start
