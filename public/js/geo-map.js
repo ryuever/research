@@ -39,11 +39,18 @@ function initMap() {
         var lat = event.latLng.lat();
         var lng = event.latLng.lng();
 
-        var elem1 = document.getElementById("lat");
+        var elem1 = document.getElementById("rad_lat");
         elem1.value = lat;
         
-        var elem2 = document.getElementById("lng");
+        var elem2 = document.getElementById("rad_lng");
         elem2.value = lng;
+        
+        var pos = {
+            lat: event.latLng.lat(),
+            lng: event.latLng.lng()
+        };
+        marker.setPosition(pos);
+        map.setCenter(pos);        
     });
 }
 

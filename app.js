@@ -28,6 +28,9 @@ app.use('/', routes);
 var travels = require('./routes/travel');
 app.use('/travel', travels);
 
+var heatmap_store = require('./routes/heatmap');
+app.use('/heatmap', heatmap_store);
+
 // app.get('/travel', function(req, res){
 //     res.sendFile(__dirname + '/travel.html');
 // });

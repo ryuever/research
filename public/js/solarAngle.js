@@ -109,9 +109,13 @@ solarAngle.prototype.cal_diff_beam = function(rh, rainfall){
             G_bh = 1367 * pow(ratio, am);
             G_dh = 0.3 * (1 - pow(ratio, am)) * 1367;
         }
-        radiation.push(parseFloat(((G_bh + G_dh) * 3600 / 10000).toFixed(2)));
-    }
 
+        pp = parseFloat(((G_bh + G_dh) * 3600 / 10000).toFixed(2));
+        if (pp < 0){
+            pp = 0;
+        }
+        radiation.push(pp);
+    }
     return radiation;
 };
 

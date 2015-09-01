@@ -82,26 +82,12 @@ $(document).ready(function(){
         }
 
         console.log(radiation_list);
-        // var line1 = [['2011-10-29 6:00',4], ['2011-10-29 7:00',6.5], ['2011-10-29 8:00',6.5]];
-        // var plot3 = $.jqplot('radiation_simulation', [radiation_list], {
-        //     // var plot3 = $.jqplot('radiation_simulation', [line1], {
-        //     title:'Simulation of Solar Radiation', 
-        //     axes:{
-        //         xaxis:{
-        //             renderer:$.jqplot.DateAxisRenderer,
-        //             tickOptions:{
-        //                 formatString:'%H',                                
-        //                 angle: -40
-        //             },
-        //             tickInterval:'1 hour'
-        //         }
-        //     },
-        //     series:[{lineWidth:4, markerOptions:{style:'square'}}]
-        // });
-       if (radiation_plot) {
+        if (radiation_plot) {
     	    radiation_plot.destroy();
         }
- 
+        
         radiation_plot = $.jqplot('radiation_simulation', [radiation_list], options_radiation);
     }
+    
+
 });

@@ -231,3 +231,67 @@ html, body {
 #travel_list{
     float : left;
 }
+
+
+
+
+/* css for heatmap on store */
+.heatmap_content{
+    height : 85%;
+    width : 100%;
+    background: silver;
+}
+
+#heatmap_stores_map{
+    width: 85%;
+    height: 100%;
+    float : left;
+    background-color: white;
+    border: 1px solid black;
+}
+#heatmap_stores_year {
+    position: absolute;
+    top: 90%;
+    left: 70%;
+    font-size: 30px;
+    font-family: sans-serif;
+    text-shadow: 0.1em 0.1em 0.2em black;
+    color: white;
+    float: left;
+}
+
+#heatmap_stores_container{
+    width: 15%;
+    height: 100%;
+    float : right;
+    backgound: red;
+}
+
+#heatmap_start_sim{
+    float : left;
+    width : 99%;
+    height : 7%;
+}
+
+#heatmap_terminate_sim{
+    float : left;
+    width : 99%;
+    height : 7%;             
+}
+
+/* #msg { */
+/*     position: absolute; */
+/*     font-size: 30px; */
+/*     font-family: sans-serif; */
+/*     text-shadow: 0.1em 0.1em 0.2em black; */
+/*     color: #d0d0ff; */
+/*     top: 200px; */
+/*     width: 600px; */
+/*     text-align: center; */
+/* } */
+/* #lightbox { */
+/*     width: 600px; */
+/*     height: 480px; */
+/*     background-color: #ffffff; */
+/*     opacity: 0.8; */
+/* } */
