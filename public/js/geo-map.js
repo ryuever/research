@@ -19,10 +19,10 @@ function initMap() {
                 lng: position.coords.longitude
             };
 
-            var elem1 = document.getElementById("lat");
+            var elem1 = document.getElementById("rad_lat");
             elem1.value = pos["lat"];
         
-            var elem2 = document.getElementById("lng");
+            var elem2 = document.getElementById("rad_lng");
             elem2.value = pos["lng"];
  
             marker.setPosition(pos);

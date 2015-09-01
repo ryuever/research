@@ -4,8 +4,13 @@ block navbar
   .navbar
 block content
   .content
-    block map
-      #map
+    block solar_position
+      #solar_position
+        block map
+          #map
+        block radiation
+          #radiation
+            include ./includes/radiation.jade
     block simulation
       .simulation
         block solar

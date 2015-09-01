@@ -23,7 +23,7 @@ $(document).ready(function(){
     });
     $('.item-wrapper a').mouseleave(function () {
         $('.panel').hide();
-    });    
+    });
 });
 
 var t = 1000;
@@ -46,7 +46,8 @@ var options_solar = {
                 angle:15
             },
             min : solar_data[0][0],
-            max: solar_data[solar_data.length-1][0]
+            max: solar_data[solar_data.length-1][0],
+            tickInterval:'5 minute'
 	    },
 	    yaxis: {min:0, max: 2000,numberTicks: 6,
   	            tickOptions:{formatString:'%.1f'} 
@@ -106,6 +107,7 @@ function solar_doUpdate(){
 
 
 
+/*--------------------- wind Turbine simulation  --------------------*/
 var wind_data = [];
 
 var y = (new Date()).getTime(); // current Fri Aug 28 08:52:42 2015
