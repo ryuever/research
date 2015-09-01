@@ -1,0 +1,106 @@
+block solarPV_simulation
+  #solarPV_simulation
+block solarPV_factors
+  #solarPV_factors.item-wrapper
+    table#solar_factor_tbl
+      tr
+        td 
+          a(href='#' data-panel="panel-lat") lat
+        td
+          input(id='lat')
+          .panel#panel-lat
+            p latitude
+      tr
+        td
+          a(href='#' data-panel="panel-lng") lng
+        td
+          input(id='lng')
+          .panel#panel-lng
+            p longitude
+      tr
+        td
+          a(href='#' data-panel="panel-V_max") V_max
+        td
+          input(id='V_max')
+          .panel#panel-V_max
+            p max power voltage - Volts
+      tr
+        td
+          a(href='#' data-panel="panel-Voc_max") Voc_max
+        td
+          input(id='Voc_max')
+          .panel#panel-Voc_max
+            p max open circuit voltage(voc) - Volts
+      tr
+        td
+          a(href='#' data-panel="panel-Voc_temp_coeff") Voc_temp_coeff
+        td
+          input(id='Voc_temp_coeff')
+          .panel#panel-Voc_temp_coeff
+            p open circuit temperature coefficient
+      tr
+        td
+          a(href='#' data-panel="panel-module_Tcoeff") module_Tcoeff
+        td
+          input(id='module_Tcoeff')
+          .panel#panel-module_Tcoeff
+            p temperature coefficient - itemed as temperature coefficient pMax.
+      tr
+        td
+          a(href='#' data-panel="panel-module_acoeff") module_acoeff
+        td
+          input(id='module_acoeff')
+          .panel#panel-module_acoeff
+            p Empirically-determined coefficient establishing the upper limit for module temperature at low wind speeds and high solar irradiance
+      tr
+        td
+          a(href='#' data-panel="panel-module_bcoeff") module_bcoeff
+        td
+          input(id='module_bcoeff')
+          .panel#panel-module_bcoeff
+            p Empirically-determined coefficient establishing the rate at which module temperature drops as wind speed increases
+      tr
+        td
+          a(href='#' data-panel="panel-module_dTcoeff") module_dTcoeff
+        td
+          input(id='module_dTcoeff')
+          .panel#panel-module_dTcoeff
+            p Temperature difference between the cell and the module back surface at an irradiance level of 1000 W/m2.
+      tr
+        td
+          a(href='#' data-panel="panel-soiling_factor") soiling_factor
+        td
+          input(id='soiling_factor')
+          .panel#panel-soiling_factor
+            p soiling of array factor - reprensenting dirt on array
+      tr
+        td
+          a(href='#' data-panel="panel-derating_factor") derating_factor
+        td
+          input(id='derating_factor')
+          .panel#panel-derating_factor
+            p manufacturing variations 5% reduction of energy transferring          
+      tr
+        td
+          a(href='#' data-panel="panel-efficiency") efficiency
+        td
+          input(id='efficiency')
+          .panel#panel-efficiency
+            p depending on solar panel type
+          
+      tr
+        td
+          a(href='#' data-panel="panel-size") size
+        td
+          input(id='size')
+          .panel#panel-size
+            p depending on solar panel
+          
+     //-  tr
+     //-    td
+     //-      label panel_type_v
+     //-    td
+     //-      select
+     //-        option 
+     //-      input(id='panel_type_v')
+    button(class = 'btn btn-default', id='solar_start_btn') Start     
