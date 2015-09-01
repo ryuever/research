@@ -1,0 +1,70 @@
+block windTurbine_simulation
+  #windTurbine_simulation
+block windTurbine_factors
+  #windTurbine_factors.item-wrapper
+    table#windTurbine_factor_tbl
+      tr
+        td 
+          a(href='#' data-panel="panel-diameter") diameter
+        td
+          input(id='diameter')
+          .panel#panel-diameter
+            p Diameter of blades
+      tr
+        td 
+          a(href='#' data-panel="panel-cut_in_ws") cut_in_ws
+        td
+          input(id='cut_in_ws')
+          .panel#panel-cut_in_ws
+            p Minimum wind speed for generator operation
+      tr
+        td 
+          a(href='#' data-panel="panel-cut_out_ws") cut_out_ws
+        td
+          input(id='cut_out_ws')
+          .panel#panel-cut_out_ws
+            p Maximum wind speed for generator operation
+      tr
+        td 
+          a(href='#' data-panel="panel-cp_max") cp_max
+        td
+          input(id='cp_max')
+          .panel#panel-cp_max
+            p Maximum coefficient of performance
+      tr
+        td 
+          a(href='#' data-panel="panel-ws_maxcp") ws_maxcp
+        td
+          input(id='ws_maxcp')
+          .panel#panel-ws_maxcp
+            p Wind speed at which generator reaches maximum Cp
+      tr
+        td 
+          a(href='#' data-panel="panel-cp_rated") cp_rated
+        td
+          input(id='cp_rated')
+          .panel#panel-cp_rated
+            p Rated coefficient of performance
+      tr
+        td 
+          a(href='#' data-panel="panel-ws_rated") ws_rated
+        td
+          input(id='ws_rated')
+          .panel#panel-ws_rated
+            p Rated wind speed for generator operation
+      tr
+        td 
+          a(href='#' data-panel="panel-turbine_heigth") turbine_height
+        td
+          input(id='turbine_height')
+          .panel#panel-turbine_height
+            p Describes the height of the wind turbine hub above the ground
+      tr
+        td 
+          a(href='#' data-panel="panel-ref_height") ref_height
+        td
+          input(id='ref_height')
+          .panel#panel-ref_height
+            p Height wind data was measured (Most meteorological data taken at 5-15 m)
+
+     button(class = 'btn btn-default', id='windTurbine_start_btn') start    
