@@ -1,0 +1,10 @@
+#travel_map
+#travel_container
+  button(type="button" class="btn btn-default" id="travel_start_sim") Start Simulation
+  button(type="button" class="btn btn-default" id="travel_terminate_sim") Terminate Simulation
+  form.form-inline#travel_form
+    input(class="form-control" type="text" id ="travel_from" placeholder ="From ...")
+    input(class="form-control" type="text" id ="travel_to" placeholder ="To ...")
+    input(class="form-control" id="travel_datetimepicker" type="text")
+    button(class="btn btn-default" id ="travel_add") Add Item
+  ul#travel_list
