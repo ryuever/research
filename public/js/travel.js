@@ -24,15 +24,28 @@ function initialize(){
 
         var geocoder = new google.maps.Geocoder();
         
-        for (var i = sorted_obj.length-1; i >= 0; i--) {
+        // for (var i = sorted_obj.length-1; i >= 0; i--) {
+        //     geocodeAddress(geocoder, map, sorted_obj[i]['from']);
+        //     geocodeAddress(geocoder, map, sorted_obj[i]['to']);
+        // };
+
+        for (var i = 0; i < sorted_obj.length; i++) {
             geocodeAddress(geocoder, map, sorted_obj[i]['from']);
             geocodeAddress(geocoder, map, sorted_obj[i]['to']);
         };
-
+        
         console.log(sorted_obj.length);
         
-        setTimeout(function(){
+        setTimeout(function(){            
             console.log(coord_list);
+
+            var pos = {
+                lat: coord_list[0].lat(),
+                lng: coord_list[0].lng()
+            };
+            
+            map.setCenter(pos);        
+            
             if(tracks){
                   tracks.setMap(null);
             }
