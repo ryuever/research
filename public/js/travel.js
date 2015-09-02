@@ -2,6 +2,7 @@ var map, timer;
 var offset = {};
 var tracks;
 var unlock = false;
+var travel_item = [];
 
 Array.prototype.sortBy = function(p) {
     return this.slice(0).sort(function(a,b) {
@@ -12,16 +13,14 @@ Array.prototype.sortBy = function(p) {
 function initialize(){
     console.log("running from travel js ");
     window.coord_list = [];
-    var obj = [];
     var sorted_obj = [];
     var map = new google.maps.Map(document.getElementById('travel_map'), {
         center: {lat: 37.46, lng: 121.448},
         zoom: 5,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-
     $('#travel_start_sim').click(function(){
-        sorted_obj = obj.sortBy('date');
+        sorted_obj = travel_item.sortBy('date');
 
         var geocoder = new google.maps.Geocoder();
         
@@ -33,6 +32,10 @@ function initialize(){
         console.log(sorted_obj.length);
         
         setTimeout(function(){
+            console.log(coord_list);
+            if(tracks){
+                  tracks.setMap(null);
+            }
             tracks = new google.maps.Polyline({ 
                 // path : [kaifeng, shanghai, nagoya, sapporo,kyoto,shanghai, kaifeng],
                 path : coord_list,
@@ -83,7 +86,7 @@ function initialize(){
         var match = date.match(/^(\d+)\/(\d+)\/(\d+) (\d+)\:(\d+)$/);        
         var dat = new Date(match[1], match[2] - 1, match[3], match[4], match[5]);
 
-        obj.push({"from":from, "to":to, "date":dat}); 
+        travel_item.push({"from":from, "to":to, "date":dat}); 
         
         // add new list item
         $('#travel_list').prepend('<li> ' + from +'->' + to + ' : ' + date + '<a href="#" class="itemDelete"> D </a>' + '</li>');
@@ -96,6 +99,12 @@ function initialize(){
     $('#travel_list').on('click', '.itemDelete', function() {
         $(this).closest('li').remove();
     });
+
+    $('#travel_clear_sim').click(function(){
+        stop();
+        $('#travel_list').empty();
+        tracks.setMap(null);
+    });    
 }
 
 function start() {
@@ -106,7 +115,9 @@ function start() {
 }
 
 function stop() {
-    clearInterval(timer);
+    travel_item = [];
+    coord_list = [];
+    clearInterval(timer);    
 }
 
 function animateTracks() {
@@ -133,10 +144,5 @@ function geocodeAddress(geocoder, resultsMap, address) {
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
-    console.log(tt);
-    console.log(lat.toString() + " 202");
-    console.log(lng.toString() + " 203");
-    console.log(tttt);
-    console.log(tttt[0] + " 205");
-    return {'lat':lat, 'lng':lng};
+    // return {'lat':lat, 'lng':lng};
 }
