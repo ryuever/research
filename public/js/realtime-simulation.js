@@ -4,7 +4,6 @@ $(document).ready(function(){
     //     $(this).attr('disabled','disabled');
     // });
     $('#solar_start_btn').click(function() {
-        alert("solar start");
         solar_doUpdate();
         // $(this).attr('disabled','disabled');
     });
@@ -71,9 +70,9 @@ function solar_doUpdate(){
     var count = 1;
     console.log('in solar_doUPdate');
     
-    $('#solar_terminate_btn').click(function(){
-        socket.emit('close_socket', "close_socket");
-    });
+    // $('#solar_terminate_btn').click(function(){
+    //     socket.emit('close_socket', "close_socket");
+    // });
 
     // socket.on('status', function(msg){
     socket.on('status', function(msg){        

@@ -47,12 +47,33 @@ html, body {
     width :35%;
     height : 95%;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 9px;
+    font-size: 6px;
+}
+
+#radiation_factor #radiation_factor_tbl{
+    float : left;
+    width : 100%;
+    /* padding : 2px; */
+}
+
+#radiation_factor_tbl tr{
+    /* margin : 2px; */
+    width : 96%;
+    height : 5%;
+}
+
+#radiation_factor_tbl tbody tr td label{
+    width : 30%;
+}
+
+#radiation_factor_tbl tbody tr td input{
+    width : 100%;
+    font-size : 10px;
 }
 
 #radiation_start_btn{
-    font-size : 10px;
-    padding : 2px 4px;
+    font-size : 14px;
+    padding : 4px 12px;
     margin-top : 2px;
     margin-left: 45%;
 }
@@ -85,7 +106,7 @@ html, body {
     font-size: 9px;
 }
 
-#solarPV_factor #solar_factor_tbl{
+#solarPV_factors #solar_factor_tbl{
     float : left;
     width : 100%;
     padding : 2px 2px;
@@ -102,17 +123,17 @@ html, body {
     height : 2%;
 }
 
-#solar_factor_tbl table tbody tr td label{
+#solar_factor_tbl tbody tr td label{
     width : 30%;
 }
 
-#solar_factor_tbl table tbody tr td input{
-    width : 60%;
+#solar_factor_tbl tbody tr td input{
+    width : 80%;
 }
 
 #solar_start_btn{
     font-size : 10px;
-    padding : 2px 4px;
+    padding : 2px 12px;
     margin-top : 2px;
     margin-left: 45%;
 }
@@ -121,42 +142,6 @@ html, body {
     font-size : 10px;
     padding : 2px 4px;
     margin-top : 2px;
-}
-
-
-#windTurbine_factors{
-    float : left;
-    width :35%;
-    height : 100%;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 10px;
-}
-
-#windTurbine_factor #solar_factor_tbl{
-    float : left;
-    width : 100%;
-    /* padding : 2px; */
-}
-
-#windTurbine_factor_tbl tr{
-    /* margin : 2px; */
-    width : 96%;
-    height : 5%;
-}
-
-#windTurbine_factor_tbl table tbody tr td label{
-    width : 30%;
-}
-
-#windTurbine_factor_tbl table tbody tr td input{
-    width : 60%;
-}
-
-#windTurbine_start_btn{
-    font-size : 10px;
-    padding : 2px 4px;
-    margin-top : 2px;
-    margin-left: 45%;
 }
 
 .wind{
@@ -173,11 +158,44 @@ html, body {
     float : left;
 }
 
+/* #windTurbine_factors{ */
+/*     float: left; */
+/*     width :35%; */
+/* } */
 #windTurbine_factors{
-    float: left;
+    float : left;
     width :35%;
+    height : 100%;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 10px;
 }
 
+#windTurbine_factor #windTurbine_factor_tbl{
+    float : left;
+    width : 100%;
+    /* padding : 2px; */
+}
+
+#windTurbine_factor_tbl tr{
+    /* margin : 2px; */
+    width : 96%;
+    height : 5%;
+}
+
+#windTurbine_factor_tbl tbody tr td label{
+    width : 30%;
+}
+
+#windTurbine_factor_tbl tbody tr td input{
+    width : 80%;
+}
+
+#windTurbine_start_btn{
+    font-size : 14px;
+    padding : 4px 12px;
+    margin-top : 2px;
+    margin-left: 45%;
+}
 .panel {
     display: none;
     width: 100px;
@@ -220,9 +238,15 @@ html, body {
     height : 5%;             
 }
 
+#travel_clear_sim{
+    float : left;
+    width : 95%;
+    height : 5%;             
+}
+
 #travel_form .form-control{
     float : left;
-    width : 99%;
+    width : 95%;
     height : 30px;                          
 }
 #travel_add{
@@ -231,9 +255,6 @@ html, body {
 #travel_list{
     float : left;
 }
-
-
-
 
 /* css for heatmap on store */
 .heatmap_content{
@@ -295,3 +316,10 @@ html, body {
 /*     background-color: #ffffff; */
 /*     opacity: 0.8; */
 /* } */
+
+
+.footer{
+    width : 100%;
+    height : 5%;
+}
+    
