@@ -10,12 +10,11 @@ CREATE TABLE if not exists device_value(
        PRIMARY KEY(gateway_id, device_id, property, get_date)
 );
 
-LOAD DATA LOCAL INFILE '/Users/ryu/Documents/git/simple/research/20150426_temperature.csv' INTO TABLE device_value
+LOAD DATA LOCAL INFILE './public/data/20150426_temperature.csv' INTO TABLE device_value
                 FIELDS TERMINATED BY ',';
 
-LOAD DATA LOCAL INFILE '/Users/ryu/Documents/git/simple/research/20150426_wind.csv' INTO TABLE device_value
+LOAD DATA LOCAL INFILE './public/data/20150426_wind.csv' INTO TABLE device_value
                 FIELDS TERMINATED BY ',';
                 
-LOAD DATA LOCAL INFILE '/Users/ryu/Documents/git/simple/research/20150426_radiation.csv' INTO TABLE device_value
+LOAD DATA LOCAL INFILE './public/data/20150426_radiation.csv' INTO TABLE device_value
                 FIELDS TERMINATED BY ',';
-
