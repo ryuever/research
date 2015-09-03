@@ -140,7 +140,7 @@ html, body {
 
 #solar_terminate_btn{
     font-size : 10px;
-    padding : 2px 4px;
+    padding : 2px 12px;
     margin-top : 2px;
 }
 
@@ -191,11 +191,18 @@ html, body {
 }
 
 #windTurbine_start_btn{
-    font-size : 14px;
+    font-size : 10px;
     padding : 4px 12px;
     margin-top : 2px;
     margin-left: 45%;
 }
+
+#windTurbine_terminate_btn{
+    font-size : 10px;
+    padding : 4px 9px;
+    margin-top : 2px;
+}
+
 .panel {
     display: none;
     width: 100px;

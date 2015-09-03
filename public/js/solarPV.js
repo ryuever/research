@@ -28,24 +28,7 @@ function md2doy(year, month, day){
     return doy;
 }
 
-// var solarPV = function(V_max, Voc_max, Voc_temp_coeff, module_Tcoeff,
-//                        module_acoeff, module_bcoeff, module_dTcoeff,
-//                        soiling_factor, derating_factor, efficiency,
-//                        Pmax_temp_coeff, size, panel_type_v){
-
 var solarPV = function(){
-    // this.V_max = typeof V_max !== 'undefined' ? V_max : 43.4;
-    // this.Voc_max = typeof Voc_max !== 'undefined' ? Voc_max : 53;
-    // this.Voc_temp_coeff = typeof Voc_temp_coeff !== 'undefined' ? Voc_temp_coeff : -0.147;
-    // this.module_Tcoeff = typeof module_Tcoeff !== 'undefined' ? module_Tcoeff : -0.336;
-    // this.module_acoeff = typeof module_acoeff !== 'undefined' ? module_acoeff : -2.81;
-    // this.module_bcoeff = typeof module_bcoeff !== 'undefined' ? module_bcoeff : -0.0455;
-    // this.module_dTcoeff = typeof module_dTcoeff !== 'undefined' ? module_dTcoeff : 0.0;
-    // this.soiling_factor = typeof soiling_factor !== 'undefined' ? soiling_factor : 0;
-    // this.derating_factor = typeof derating_factor !== 'undefined' ? derating_factor : 0;
-    // this.efficiency = typeof efficiency !== 'undefined' ? efficiency : 0;
-    // this.Pmax_temp_coeff = typeof Pmax_temp_coeff !== 'undefined' ? Pmax_temp_coeff : 0;
-    // this.size = typeof size !== 'undefined' ? size : 1.5;
 
     this.V_max = parseFloat(document.getElementById("V_max").value);
     this.Voc_max = parseFloat(document.getElementById("Voc_max").value);
@@ -71,17 +54,6 @@ var solarPV = function(){
 };
 
 solarPV.prototype.generatedPower = function(temp,wind,power){
-    // var year = timestamp.getFullYear();
-    // var month = timestamp.getMonth();
-    // var day = timestamp.getDay();
-    // doy = md2doy(year, month, day);
-
-    // console.log(this.V_max.toString());
-    // console.log(this.soiling_factor.toString());
-    // console.log(this.size.toString());
-    // console.log(this.derating_factor.toString());
-    // console.log(this.Voc_temp_coeff.toString());
-
     var Tambient = temp;
     var insolwmsq = 0.95 * power;
     var windspeed = wind;

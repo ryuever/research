@@ -154,6 +154,7 @@ function initialize(){
         
         // add new list item
         $('#travel_list').prepend('<li> ' + from +'->' + to + ' : ' + date + '<a href="#" class="itemDelete"> D </a>' + '</li>');
+        
         // clear value input
         $('#travel_from').val('');
         $('#travel_to').val('');
