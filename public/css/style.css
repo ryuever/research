@@ -324,6 +324,54 @@ html, body {
 /*     opacity: 0.8; */
 /* } */
 
+.direction_content{
+    height : 85%;
+    width : 100%;
+}
+
+#direction_map {
+    width: 85%;
+    height: 100%;
+    float : left;
+    background-color: white;
+    border: 1px solid black;
+}
+
+#direction_container{
+    width: 15%;
+    height: 100%;
+    float : right;
+}
+
+#direction_start_sim{
+    float : left;
+    width : 95%;
+    height : 5%;
+}
+
+#direction_terminate_sim{
+    float : left;
+    width : 95%;
+    height : 5%;             
+}
+
+#direction_clear_sim{
+    float : left;
+    width : 95%;
+    height : 5%;             
+}
+
+#direction_form .form-control{
+    float : left;
+    width : 95%;
+    height : 30px;                          
+}
+#direction_add{
+    float : left;
+}
+#direction_list{
+    float : left;
+}
 
 .footer{
     width : 100%;

@@ -1,0 +1,22 @@
+block head
+  head
+    title Direction Service    
+    link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+    link(rel='stylesheet', href='css/style.css')
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
+    script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+    script(src="https://maps.googleapis.com/maps/api/js?sensor=false")
+    script(src="js/v3_epoly.js")
+    script(src="js/direction_service.js")
+        
+  body(onload="initialize()")
+    block navbar
+      .navbar
+        include ./includes/navbar.jade
+    block content
+      .direction_content
+        include ./includes/direction_content.jade
+  
+  script(src="http://www.google-analytics.com/urchin.js")
+  block footer
+    include ./footer.jade  

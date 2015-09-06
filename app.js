@@ -20,6 +20,9 @@ app.use('/travel', travels);
 var heatmap_store = require('./routes/heatmap');
 app.use('/heatmap', heatmap_store);
 
+var direction = require('./routes/direction');
+app.use('/direction', direction);
+
 // app.get('/travel', function(req, res){
 //     res.sendFile(__dirname + '/travel.html');
 // });
