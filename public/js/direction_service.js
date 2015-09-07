@@ -19,10 +19,46 @@ var step_distances = 0;
 var steps_index = [];
 var step_index = 0;
 
+var start_time = 0;
+var temp_time = 0;
+var remaining_time = 0;
+
+var distance = 0;
+
+// save time state to resume simulation 
+var suspend_time = 0;
+var suspend_remaining_time = 0;
+
 $(document).ready(function(){
     $('#direction_start_sim').click(function(){
         calcRoute();
     });
+
+    $('#direction_suspend_sim').click(function(){
+        suspend_time = time_to_msec(document.getElementById("time").innerHTML);
+        suspend_remaining_time = time_to_msec(document.getElementById("time_remaining").innerHTML);
+        if (timerHandle) { clearTimeout(timerHandle); }
+        $('#speed').prop('readonly', false);
+        document.getElementById("direction_start_sim").disabled = true;
+    });
+    
+    $('#direction_resume_sim').click(function(){
+        var speed_str = document.getElementById("speed").value;
+        var reg = /\d+/g;
+        speed = parseFloat(speed_str.match(reg));
+        
+        step = speed / 3.6;
+
+        $('#speed').prop('readonly', true);
+        if (timerHandle) { clearTimeout(timerHandle); }
+        start_time = new Date();
+        timerHandle = setTimeout("animate("+(distance+step)+"," + suspend_time + "," + suspend_remaining_time + ")", tick);
+        document.getElementById("direction_start_sim").disabled = false;
+    });
+    
+    $('#direction_clear_sim').click(function(){
+        route_direction_clear();
+    });    
 });
 
 function createMarker(latlng, label, html) {
@@ -41,7 +77,6 @@ function createMarker(latlng, label, html) {
     });
     return marker;
 }
-
 
 function initialize() {
     
@@ -165,7 +200,7 @@ function calcRoute(){
     });
 }
 
-var step = 50; // 5; // metres
+var step = 5; // 5; // metres
 var tick = 1000; // milliseconds
 var eol;
 var k=0;
@@ -173,7 +208,8 @@ var stepnum=0;
 var lastVertex = 1;
 var indicator = 0;
 
-function animate(d) {
+function animate(d, suspend_time, suspend_remaining_time) {
+
     if (d == (eol + step)) {
         map.panTo(endLocation.latlng);
         marker.setPosition(endLocation.latlng);
@@ -200,18 +236,98 @@ function animate(d) {
     // console.log("d_in_steps_index " + d_in_steps_index.toString());
     
     document.getElementById("step").innerHTML = step_info[d_in_steps_index]['step_text'];
-    document.getElementById("distance").innerHTML =  parseInt(d).toString();
+    document.getElementById("distance").innerHTML =  parseInt(d).toString() + 'm';
+    
+    temp_time = new Date();
+    var diff_time = temp_time - start_time;     // milliseconds
+    
+    document.getElementById("time").innerHTML =
+        time_diff_conversion(diff_time + suspend_time) + " s";
 
+    var speed_str = document.getElementById("speed").value;
+    var reg = /\d+/g;
+    speed = parseFloat(speed_str.match(reg));
+    document.getElementById("speed").value = speed + "km/h";
+    
+    console.log("eol" + eol.toString() + " step " + step.toString());
+    remaining_time = eol / step * 1000 - diff_time - suspend_time;
+    document.getElementById("time_remaining").innerHTML =
+        // time_diff_conversion(remaining_time + time_to_msec(suspend_remaining_time)) + " s";
+        time_diff_conversion(remaining_time) + " s";
+    
     map.panTo(p);
     marker.setPosition(p);
-    timerHandle = setTimeout("animate("+(d+step)+")", tick);    
+
+    distance = d;
+
+    timerHandle = setTimeout("animate("+(d+step)+"," + suspend_time + "," + suspend_remaining_time + ")", tick);
 }
 
 function startAnimation() {
+    start_time = new Date();
     // console.log("step_info" + step_info);
     eol=polyline.Distance();
     // console.log("eol" + eol.toString());
     // console.log("get Index at distance : " + polyline.GetIndexAtDistance(eol));    // 102
     map.setCenter(polyline.getPath().getAt(0));
-    setTimeout("animate(50)",2000);  // Allow time for the initial map display
+    polyline.setMap(null);
+    var speed_str = document.getElementById("speed").value;
+    var reg = /\d+/g;
+    speed = parseFloat(speed_str.match(reg));
+
+    step = speed / 3.6;
+    
+    $('#speed').prop('readonly', true);
+    // Allow time for the initial map display
+    setTimeout("animate("+ step +"," + suspend_time + "," + suspend_remaining_time + ")", 2000);
+    // setTimeout("animate(" + step + ")",2000);  
+}
+
+function route_direction_clear(){
+    if (timerHandle) { clearTimeout(timerHandle); }
+    polyline.setMap(null);
+    directionsDisplay.setMap(null);
+    step_info = [];
+    step_distances = 0;
+    steps_index = [];
+    step_index = 0;
+    if (marker){
+        marker.setMap(null);
+    }    
+    document.getElementById("direction_from").value = null;
+    document.getElementById("direction_to").value = null;    
+    document.getElementById("step").innerHTML = "";
+    document.getElementById("distance").innerHTML = "";
+    document.getElementById("speed").value = "";
+    document.getElementById("time").innerHTML = "";
+    document.getElementById("time_remaining").innerHTML = "";
+    suspend_time = 0;
+    suspend_remaining_time = 0;
+    $('#speed').prop('readonly', false);
+}
+
+function time_diff_conversion(msec){
+    var hh = Math.floor(msec / 1000 / 60 / 60);
+    msec -= hh * 1000 * 60 * 60;    
+    if (hh<10){
+        hh = '0'+hh;
+    }
+    var mm = Math.floor(msec / 1000 / 60);
+    msec -= mm * 1000 * 60;
+    if (mm < 10){
+        mm = '0' + mm;
+    }    
+    var ss = Math.floor(msec / 1000);
+    msec -= ss * 1000;
+    if (ss < 10){
+        ss = '0' + ss;
+    }
+    return hh + ":" + mm +":" + ss;
+}
+
+function time_to_msec(time_string){
+    var reg = /\d+/g;
+    var time_list = time_string.match(reg);
+    
+    return time_list[0] * 1000 * 60 * 60 + time_list[1] * 1000 * 60 + time_list[2] * 1000;    
 }

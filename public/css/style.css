@@ -349,7 +349,13 @@ html, body {
     height : 5%;
 }
 
-#direction_terminate_sim{
+#direction_suspend_sim{
+    float : left;
+    width : 95%;
+    height : 5%;             
+}
+
+#direction_resume_sim{
     float : left;
     width : 95%;
     height : 5%;             
@@ -366,23 +372,69 @@ html, body {
     width : 95%;
     height : 30px;                          
 }
+#direction_form #route_direction_label{
+    float : left;
+    width : 95%;
+}
+    
+#direction_form #step{
+    float : left;
+    width : 95%;
+    height : 60px;
+    border: 1px solid #ccc;
+    border-radius : 4px;
+    pointer-events: none;
+}
+
+#direction_form #distance{
+    float : left;
+    width : 95%;
+    border: 1px solid #ccc;
+    height : 30px;
+    border-radius : 4px;
+}
+
+#direction_form #route_speed_label{
+    float : left;
+    width : 95%;
+}
+#direction_form #speed{
+    float : left;
+    width : 95%;
+    border: 1px solid #ccc;
+    height : 30px;
+    border-radius : 4px;
+}
+
+#direction_form #route_time_label{
+    float : left;
+    width : 95%;
+}
+#direction_form #time{
+    float : left;
+    width : 95%;
+    border: 1px solid #ccc;
+    height : 30px;
+    border-radius : 4px;
+}
+
+#direction_form #route_time_remaining_label{
+    float : left;
+    width : 95%;
+}
+#direction_form #time_remaining{
+    float : left;
+    width : 95%;
+    border: 1px solid #ccc;
+    height : 30px;
+    border-radius : 4px;
+}
+
 #direction_add{
     float : left;
 }
 #direction_list{
     float : left;
-}
-
-#step{
-    float : left;
-    width : 95%;
-    height : 60px;
-}
-
-#distance{
-    float : left;
-    width : 95%;
-    height : 30px;
 }
 
 .footer{

@@ -3,11 +3,22 @@
   form.form-inline#direction_form
     input(class="form-control" type="text" id ="direction_from" placeholder ="From ..." value="金沢駅")
     input(class="form-control" type="text" id ="direction_to" placeholder ="To ..." value="野町駅")
+    label(class="control-label", id='route_direction_label') Route direction : 
+    #step
+    label(class="control-label", id='route_meter_label') Meters : 
+    #distance
+    label(class="control-label", id='route_speed_label') Speed : 
+    input(class="form-control" type="text" id ="speed" value="18 km/h")
+    label(class="control-label", id='route_time_label') Elapsed time : 
+    #time
+    label(class="control-label", id='route_time_remaining_label') Remaining time: 
+    #time_remaining
     // input(class="form-control" id="direction_datetimepicker" type="text")
     // button(class="btn btn-default" id ="direction_add") Add Item
   button(type="button" class="btn btn-default" id="direction_start_sim") Start Simulation
-  button(type="button" class="btn btn-default" id="direction_terminate_sim") Terminate Simulation
+  button(type="button" class="btn btn-default" id="direction_suspend_sim") Suspend Simulation
+  button(type="button" class="btn btn-default" id="direction_resume_sim") Resume Simulation
   button(type="button" class="btn btn-default" id="direction_clear_sim") Clear Simulation
-  #step
-  #distance
+  // #step
+  // #distance
   ul#direction_list
