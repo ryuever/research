@@ -242,7 +242,7 @@ function animate(d, suspend_time, suspend_remaining_time) {
     var diff_time = temp_time - start_time;     // milliseconds
     
     document.getElementById("time").innerHTML =
-        time_diff_conversion(diff_time + suspend_time) + " s";
+        time_diff_conversion(diff_time + suspend_time);
 
     var speed_str = document.getElementById("speed").value;
     var reg = /\d+/g;
@@ -253,7 +253,7 @@ function animate(d, suspend_time, suspend_remaining_time) {
     remaining_time = eol / step * 1000 - diff_time - suspend_time;
     document.getElementById("time_remaining").innerHTML =
         // time_diff_conversion(remaining_time + time_to_msec(suspend_remaining_time)) + " s";
-        time_diff_conversion(remaining_time) + " s";
+        time_diff_conversion(remaining_time);
     
     map.panTo(p);
     marker.setPosition(p);

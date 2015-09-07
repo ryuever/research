@@ -26,4 +26,9 @@ It provide the following functionalities:
  ![alt tag](https://cloud.githubusercontent.com/assets/2316727/9667850/3d0366fc-52b9-11e5-94a7-ee57a225c041.png)
 ## heatmap
 __heatmap__ layer is used to present large amounts of data on a map. In this application, it is applied to animate the opening of solar panel selling store during 2004-2008.  Howerer, the data is imaginary and in Jason format.
+![alt tag](https://cloud.githubusercontent.com/assets/2316727/9719594/9ff2f6ba-55c0-11e5-8a3f-ab02e6b91873.png)
 
+## Navi
+This application is the usage of direction service of Google map API v3. If it is provided with a __"From ...."__ location, a __"To ..."__ location and __speed__, the application will present a real-time simulation of road direction with __"step information"__, __"running distance"__, __"elapsed time"__ and __"remaining time"__ to the destination.
+
+![alt tag](https://cloud.githubusercontent.com/assets/2316727/9719603/d376ad2e-55c0-11e5-82c0-70de5d3866c7.png)
