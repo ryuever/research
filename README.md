@@ -1,6 +1,18 @@
 # Real-time simulation of Solar PV and Wind Turbine -- Node.js, Express, Ajax, Google Map API
 ===========================================
-Simulation is deployed on AWS EC2 cloud server and supported by Node.js. It is fatured with Google map API which is used to provide the location information with more convenient way.Moreover, in order to present the powerful ability on data visulization of Google map API, two applications called "travel" and "heatmap" are provided as well.
+Simulation is deployed on AWS EC2 cloud server and supported by Node.js. It is fatured with Google map API which is used to provide the location information with more convenient way.Moreover, in order to present the powerful ability on data visulization of Google map API, three applications called __"travel" , "heatmap" and "navi"__ are provided as well.
+
+Tech                               | Description 
+-----------------------------------| -------------
+AWS EC2                            | cloud server
+mysql                              | database
+Node.js                            | web framework
+Jade                               | Node template engine
+Express                            | Node.js web application framework
+Ajax                               | Data exchange
+Google Map API - polyline          | "Travel"
+Google Map API - heatmap           | "Heatmap"
+Google Map API - Direction Service | "Navi"
 
 ## simulation / home
 It consists of three parts : real-time simulation of solar PV, real-time simulation of wind turbine and simulation of solar radiation. For every module, it will consider the climated data which could be iHouse system. However, the simulation of solar PV and wind turbine, the manufacture specification will be token account as well...The applied factore is present on the right side of each simulation graph.
