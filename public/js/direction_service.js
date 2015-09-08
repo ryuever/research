@@ -234,10 +234,14 @@ function animate(d, suspend_time, suspend_remaining_time) {
     }
 
     // console.log("d_in_steps_index " + d_in_steps_index.toString());
-    
-    document.getElementById("step").innerHTML = step_info[d_in_steps_index]['step_text'];
-    document.getElementById("distance").innerHTML =  parseInt(d).toString() + 'm';
-    
+
+    if (d_in_steps_index < steps_index.length-1){
+        document.getElementById("step").innerHTML = step_info[d_in_steps_index+1]['step_text'];
+    }else{
+        document.getElementById("step").innerHTML = "<b>Trip completed</b>";
+    }
+        document.getElementById("distance").innerHTML =  parseInt(d).toString() + 'm';
+        
     temp_time = new Date();
     var diff_time = temp_time - start_time;     // milliseconds
     
@@ -251,9 +255,10 @@ function animate(d, suspend_time, suspend_remaining_time) {
     
     console.log("eol" + eol.toString() + " step " + step.toString());
     remaining_time = eol / step * 1000 - diff_time - suspend_time;
-    document.getElementById("time_remaining").innerHTML =
-        // time_diff_conversion(remaining_time + time_to_msec(suspend_remaining_time)) + " s";
-        time_diff_conversion(remaining_time);
+    if(remaining_time < 0){
+        remaining_time = 0;
+    }
+    document.getElementById("time_remaining").innerHTML = time_diff_conversion(remaining_time);    
     
     map.panTo(p);
     marker.setPosition(p);
